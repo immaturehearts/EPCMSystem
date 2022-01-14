@@ -2,6 +2,7 @@ package com.example.epcmsystem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
@@ -25,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-
+                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                finish();
             }
         };
         timer.schedule(task,3000);
