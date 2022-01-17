@@ -20,7 +20,7 @@ import com.example.epcmsystem.databinding.ActivityNavigationBinding;
 
 public class NavigationActivity extends AppCompatActivity {
 
-    private AppBarConfiguration mAppBarConfiguration;
+    private AppBarConfiguration mAppBarConfiguration, bAppBarConfiguration;
     private ActivityNavigationBinding binding;
 
     @Override
@@ -52,6 +52,10 @@ public class NavigationActivity extends AppCompatActivity {
 
 //        NavHostFragment navHostFragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_navigation);
 //        NavController bottomNavController = navHostFragment.getNavController();
+        bAppBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.navigation_notification, R.id.navigation_home)
+                .setOpenableLayout(drawer)
+                .build();
         NavController bottomNavController = Navigation.findNavController(this,R.id.nav_host_fragment_activity_navigation);
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         NavigationUI.setupWithNavController(bottomNav, bottomNavController);
