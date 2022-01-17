@@ -9,5 +9,9 @@
     android:weightSum="7"
     tools:context=".ui.notifications.NotificationFragment">
 
+    <TextView
+        android:id="@+id/position_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
