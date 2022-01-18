@@ -21,6 +21,14 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.SDKInitializer;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.model.LatLng;
 import com.example.epcmsystem.R;
 import com.example.epcmsystem.databinding.FragmentNotificationBinding;
 import com.example.epcmsystem.ui.notifications.NotificationViewModel;
@@ -34,6 +42,9 @@ public class NotificationFragment extends Fragment {
     private FragmentNotificationBinding binding;
     public LocationClient mLocationClient;
     private TextView positionText;
+    private MapView mapView;
+    private BaiduMap baiduMap;
+    private boolean isFirstLocate = true;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -46,7 +57,12 @@ public class NotificationFragment extends Fragment {
 
         mLocationClient = new LocationClient(getContext());
         mLocationClient.registerLocationListener(new MyLocationListener());
+//        SDKInitializer.initialize(getContext());
         positionText = (TextView) root.findViewById(R.id.position_tv);
+        mapView = (MapView) root.findViewById(R.id.bdmapview);
+        baiduMap = mapView.getMap();
+        baiduMap.setMyLocationEnabled(true);
+
         List<String> peimissionList = new ArrayList<>();
         if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED){
@@ -75,6 +91,18 @@ public class NotificationFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
     private void requestLocation() {
         initLocation();
         mLocationClient.start();
@@ -82,9 +110,27 @@ public class NotificationFragment extends Fragment {
 
     private void initLocation(){
         LocationClientOption option = new LocationClientOption();
-        option.setScanSpan(5000);
+        option.setOpenGps(true);
+        option.setCoorType("bd09ll");
+        option.setScanSpan(3000);
         option.setIsNeedAddress(true);
         mLocationClient.setLocOption(option);
+    }
+
+    private void navigateTo(BDLocation bdLocation){
+        if(isFirstLocate){
+            LatLng latLng = new LatLng(bdLocation.getLatitude(),bdLocation.getLongitude()); //获取经纬度
+            MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(latLng);
+            baiduMap.animateMapStatus(update);
+            update = MapStatusUpdateFactory.zoomTo(15f);
+            baiduMap.animateMapStatus(update);
+            isFirstLocate = false;
+        }
+        MyLocationData.Builder locationBuilder = new MyLocationData.Builder();
+        locationBuilder.latitude(bdLocation.getLatitude());
+        locationBuilder.longitude(bdLocation.getLongitude());
+        MyLocationData locationData = locationBuilder.build();
+        baiduMap.setMyLocationData(locationData); //在地图上显示我的位置
     }
 
     @Override
@@ -114,6 +160,10 @@ public class NotificationFragment extends Fragment {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    //mapView 销毁后不在处理新接收的位置
+                    if (bdLocation == null || mapView == null){
+                        return;
+                    }
                     StringBuilder currentPosition = new StringBuilder();
                     currentPosition.append("纬度：").append(bdLocation.getLatitude()).append("\n");
                     currentPosition.append("经度：").append(bdLocation.getLongitude()).append("\n");
@@ -128,6 +178,10 @@ public class NotificationFragment extends Fragment {
                     }else if(bdLocation.getLocType() == BDLocation.TypeNetWorkLocation){
                         currentPosition.append("网络");
                     }
+                    if(bdLocation.getLocType() == BDLocation.TypeGpsLocation
+                            || bdLocation.getLocType() == BDLocation.TypeNetWorkLocation){
+                        navigateTo(bdLocation);  //定位到当前位置
+                    }
                     positionText.setText(currentPosition);
                 }
             });
@@ -139,5 +193,8 @@ public class NotificationFragment extends Fragment {
         super.onDestroyView();
         binding = null;
         mLocationClient.stop();
+        mapView.onDestroy();
+        mapView = null;
+        baiduMap.setMyLocationEnabled(false);
     }
 }
