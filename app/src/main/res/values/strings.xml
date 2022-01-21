@@ -32,4 +32,6 @@
     <string name="title_home">home</string>
     <string name="title_notification">notification</string>
 
+    <string name="area_activity_name">风险区域</string>
+
 </resources>

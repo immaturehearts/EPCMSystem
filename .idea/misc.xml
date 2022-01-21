@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../Downloads/android-sdk-macosx/platforms/android-28/data/res/layout/simple_spinner_item.xml" value="0.18206521739130435" />
+        <entry key="app/src/main/res/drawable/border.xml" value="0.30666666666666664" />
         <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.31145833333333334" />
         <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.31145833333333334" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.31145833333333334" />
@@ -12,7 +14,9 @@
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.14361702127659576" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1503623188405797" />
         <entry key="app/src/main/res/layout/activity_navigation.xml" value="0.17753623188405798" />
+        <entry key="app/src/main/res/layout/activity_risk_area.xml" value="0.14361702127659576" />
         <entry key="app/src/main/res/layout/app_bar_navigation.xml" value="0.17753623188405798" />
+        <entry key="app/src/main/res/layout/border.xml" value="0.14361702127659576" />
         <entry key="app/src/main/res/layout/content_navigation.xml" value="0.17753623188405798" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.17753623188405798" />
         <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.17753623188405798" />
@@ -20,6 +24,11 @@
         <entry key="app/src/main/res/layout/fragment_notification.xml" value="0.161231884057971" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.17753623188405798" />
         <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.17753623188405798" />
+        <entry key="app/src/main/res/layout/fragment_tabPage.xml" value="0.1716485507246377" />
+        <entry key="app/src/main/res/layout/fragment_tab_item.xml" value="0.15670289855072464" />
+        <entry key="app/src/main/res/layout/fragment_tab_item_list.xml" value="0.1716485507246377" />
+        <entry key="app/src/main/res/layout/fragment_tabpage.xml" value="0.16621376811594202" />
+        <entry key="app/src/main/res/layout/fragment_tabview.xml" value="0.1716485507246377" />
         <entry key="app/src/main/res/layout/nav_header_navigation.xml" value="0.17753623188405798" />
         <entry key="app/src/main/res/menu/activity_navigation_drawer.xml" value="0.2953125" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.2953125" />
