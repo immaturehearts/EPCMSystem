@@ -6,16 +6,6 @@
     app:startDestination="@id/navigation_notification">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.epcmsystem.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_navigation_home_to_navigation_notification"
-            app:destination="@id/navigation_notification" />
-    </fragment>
-
-    <fragment
         android:id="@+id/navigation_notification"
         android:name="com.example.epcmsystem.ui.notifications.NotificationFragment"
         android:label="@string/title_notification"
@@ -23,6 +13,16 @@
         <action
             android:id="@+id/action_navigation_notification_to_navigation_home"
             app:destination="@id/navigation_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.epcmsystem.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_notification"
+            app:destination="@id/navigation_notification" />
     </fragment>
 
 </navigation>
