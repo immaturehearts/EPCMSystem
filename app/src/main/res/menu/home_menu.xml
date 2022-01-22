@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/mmg1" android:checkableBehavior="single">
+        <item
+            android:id="@+id/history"
+            android:title="history"/>
+
+        <item
+            android:id="@+id/vip"
+            android:title="vip"/>
+
+        <item
+            android:id="@+id/wallet"
+            android:title="wallet"/>
+    </group>
+
+    <group android:id="@+id/mmg2" android:checkableBehavior="single">
+        <item
+            android:id="@+id/settings"
+            android:title="settings"/>
+
+        <item
+            android:id="@+id/service"
+            android:title="service"/>
+    </group>
+
+<!--    <group android:id="@+id/mmg3" android:checkableBehavior="single">-->
+<!--        <item-->
+<!--            android:id="@+id/logout"-->
+<!--            android:title="@string/item_logout"/>-->
+
+<!--    </group>-->
+
+</menu>

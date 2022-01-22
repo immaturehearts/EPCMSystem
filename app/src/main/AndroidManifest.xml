@@ -26,9 +26,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EPCMSystem">
         <activity
-            android:name=".RiskAreaActivity"
-            android:label="@string/area_activity_name"
+            android:name=".UploadActivity"
             android:exported="false" />
+        <activity
+            android:name=".RiskAreaActivity"
+            android:exported="false"
+            android:label="@string/area_activity_name" />
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
