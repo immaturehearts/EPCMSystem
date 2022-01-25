@@ -35,6 +35,12 @@
     <string name="area_activity_name">风险区域</string>
     <string name="title_activity_settings">SettingsActivity</string>
 
+    <string name="info_name">姓名 Name</string>
+    <string name="info_gender">性别 Gender</string>
+    <string name="info_id">证件号码 ID card number</string>
+    <string name="info_phone">联系方式 Mobile phone</string>
+    <string name="info_email">邮箱地址 Email address</string>
+
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>

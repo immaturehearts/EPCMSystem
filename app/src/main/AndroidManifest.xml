@@ -26,6 +26,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EPCMSystem">
         <activity
+            android:name=".BasicInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".IDActivity"
+            android:exported="false" />
+        <activity
             android:name=".UploadActivity"
             android:exported="false" />
         <activity
