@@ -45,8 +45,8 @@ public class NavigationActivity extends AppCompatActivity {
         binding.appBarNavigation.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(getApplicationContext(), HealthPunchInActivity.class);
+                startActivity(intent);
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
@@ -55,7 +55,7 @@ public class NavigationActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         //抽屉导航栏
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_comic, R.id.nav_slideshow)
                 .setOpenableLayout(drawer)
                 .build();
 
@@ -81,6 +81,11 @@ public class NavigationActivity extends AppCompatActivity {
                         drawer.closeDrawers();
                         Intent intent = new Intent(getApplicationContext(), RiskAreaActivity.class);
                         startActivity(intent);
+                        break;
+                    case R.id.nav_comic:
+                        drawer.closeDrawers();
+                        Intent intent2 = new Intent(getApplicationContext(), ComicActivity.class);
+                        startActivity(intent2);
                         break;
                     case R.id.nav_slideshow:
                         drawer.closeDrawers();

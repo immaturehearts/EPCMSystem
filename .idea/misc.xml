@@ -12,6 +12,8 @@
         <entry key="app/src/main/res/drawable/ic_upload_black_24dp.xml" value="0.31145833333333334" />
         <entry key="app/src/main/res/drawable/side_nav_bar.xml" value="0.31145833333333334" />
         <entry key="app/src/main/res/layout/activity_basic_info.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_comic.xml" value="0.1743659420289855" />
+        <entry key="app/src/main/res/layout/activity_health_punch_in.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_idactivity.xml" value="0.18432971014492755" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.14361702127659576" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1503623188405797" />
@@ -20,6 +22,7 @@
         <entry key="app/src/main/res/layout/activity_upload.xml" value="0.25" />
         <entry key="app/src/main/res/layout/app_bar_navigation.xml" value="0.17753623188405798" />
         <entry key="app/src/main/res/layout/border.xml" value="0.14361702127659576" />
+        <entry key="app/src/main/res/layout/comic_item.xml" value="0.1743659420289855" />
         <entry key="app/src/main/res/layout/content_navigation.xml" value="0.17753623188405798" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.17753623188405798" />
         <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.17753623188405798" />

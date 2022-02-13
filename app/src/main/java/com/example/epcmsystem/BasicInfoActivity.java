@@ -81,6 +81,10 @@ public class BasicInfoActivity extends AppCompatActivity {
         });
 
         edit_btn.setOnClickListener(v -> {
+//            SharedPreferences userInfo = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+//            SharedPreferences.Editor editor = userInfo.edit();
+//            editor.clear();
+//            editor.apply();
             name_tv.setEnabled(true);
             id_tv.setEnabled(true);
             phone_tv.setEnabled(true);
@@ -104,11 +108,11 @@ public class BasicInfoActivity extends AppCompatActivity {
 
     private void inputInfo(){
         SharedPreferences userInfo = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        name_tv.setText(userInfo.getString("personName", "Name"));
+        name_tv.setText(userInfo.getString("personName", ""));
         gender_spinner.setSelection(userInfo.getInt("personGender", 0));
-        id_tv.setText(userInfo.getString("personID", "ID card"));
-        phone_tv.setText(userInfo.getString("personPhone", "Phone number"));
-        email_tv.setText(userInfo.getString("personEmail", "Email address"));
+        id_tv.setText(userInfo.getString("personID", ""));
+        phone_tv.setText(userInfo.getString("personPhone", ""));
+        email_tv.setText(userInfo.getString("personEmail", ""));
 
         if(userInfo.contains("personName") && userInfo.contains("personGender") && userInfo.contains("personID")
                 && userInfo.contains("personPhone") && userInfo.contains("personEmail")) {

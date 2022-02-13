@@ -14,4 +14,12 @@
         <item>男</item>
         <item>女</item>
     </string-array>
+
+    <string-array name="health_condition_values">
+        <item>健康</item>
+        <item>发热</item>
+        <item>疑似</item>
+        <item>确诊</item>
+        <item>治愈</item>
+    </string-array>
 </resources>

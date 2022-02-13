@@ -28,6 +28,7 @@
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
+    <string name="menu_comic">Comic</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="title_home">home</string>
     <string name="title_notification">notification</string>

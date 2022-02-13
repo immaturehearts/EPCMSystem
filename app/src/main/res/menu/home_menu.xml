@@ -10,8 +10,8 @@
             android:title="basic information"/>
 
         <item
-            android:id="@+id/wallet"
-            android:title="wallet"/>
+            android:id="@+id/punch_in"
+            android:title="health punch-in"/>
     </group>
 
     <group android:id="@+id/mmg2" android:checkableBehavior="single">

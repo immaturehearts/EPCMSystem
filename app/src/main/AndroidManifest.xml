@@ -26,11 +26,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EPCMSystem">
         <activity
-            android:name=".BasicInfoActivity"
+            android:name=".ComicActivity"
             android:exported="false" />
         <activity
+            android:name=".HealthPunchInActivity"
+            android:exported="false"
+            android:label="健康上报"/>
+        <activity
+            android:name=".BasicInfoActivity"
+            android:exported="false"
+            android:label="基本信息"/>
+        <activity
             android:name=".IDActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="身份认证"/>
         <activity
             android:name=".UploadActivity"
             android:exported="false" />

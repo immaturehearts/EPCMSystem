@@ -17,6 +17,12 @@
         android:label="@string/area_activity_name"
         tools:layout="@layout/activity_risk_area" />
 
+    <activity
+        android:id="@+id/nav_comic"
+        android:name="com.example.epcmsystem.ComicActivity"
+        android:label="防疫漫画"
+        tools:layout="@layout/activity_comic" />
+
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.example.epcmsystem.ui.slideshow.SlideshowFragment"

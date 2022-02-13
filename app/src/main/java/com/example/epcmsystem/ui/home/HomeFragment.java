@@ -20,6 +20,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.epcmsystem.BasicInfoActivity;
+import com.example.epcmsystem.HealthPunchInActivity;
 import com.example.epcmsystem.IDActivity;
 import com.example.epcmsystem.R;
 import com.example.epcmsystem.databinding.FragmentHomeBinding;
@@ -48,6 +49,10 @@ public class HomeFragment extends Fragment {
                 case R.id.info:
                     Intent intent2 = new Intent(getActivity(), BasicInfoActivity.class);
                     startActivity(intent2);
+                    break;
+                case R.id.punch_in:
+                    Intent intent3 = new Intent(getActivity(), HealthPunchInActivity.class);
+                    startActivity(intent3);
                     break;
                 default:
             }
