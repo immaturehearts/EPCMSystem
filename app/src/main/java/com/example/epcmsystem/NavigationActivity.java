@@ -2,10 +2,13 @@ package com.example.epcmsystem;
 
 import android.app.Notification;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -32,6 +35,9 @@ public class NavigationActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration, bAppBarConfiguration;
     private ActivityNavigationBinding binding;
+    View nav_header_view;
+    TextView name_tv, email_tv;
+    final String PREFS_NAME = "userinfo";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +64,11 @@ public class NavigationActivity extends AppCompatActivity {
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_comic, R.id.nav_slideshow)
                 .setOpenableLayout(drawer)
                 .build();
+        ViewGroup header = (ViewGroup) getLayoutInflater().inflate(R.layout.nav_header_navigation, binding.getRoot(), false);
+        name_tv = header.findViewById(R.id.nav_header_name);
+        email_tv = header.findViewById(R.id.nav_header_email);
+        navigationView.addHeaderView(header);
+        inputInfo();
 
         //底部导航栏
         bAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -101,6 +112,13 @@ public class NavigationActivity extends AppCompatActivity {
 
 //        NavHostFragment navHostFragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_navigation);
 //        NavController bottomNavController = navHostFragment.getNavController();
+
+    }
+
+    private void inputInfo(){
+        SharedPreferences userInfo = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        name_tv.setText(userInfo.getString("personName", "Android Studio"));
+        email_tv.setText(userInfo.getString("personEmail", "android.studio@android.com"));
 
     }
 

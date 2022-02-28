@@ -1,7 +1,10 @@
 package com.example.epcmsystem.ui.home;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -30,6 +33,8 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
+    TextView name_tv, email_tv;
+    final String PREFS_NAME = "userinfo";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,6 +45,12 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
         NavigationView myselfView = root.findViewById(R.id.home_nv);
+        ViewGroup header = (ViewGroup) getLayoutInflater().inflate(R.layout.home_header, binding.getRoot(), false);
+        name_tv = header.findViewById(R.id.user_name);
+        email_tv = header.findViewById(R.id.user_email);
+        myselfView.addHeaderView(header);
+        inputInfo();
+
         myselfView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.id:
@@ -60,6 +71,13 @@ public class HomeFragment extends Fragment {
         });
 
         return root;
+    }
+
+    private void inputInfo(){
+        SharedPreferences userInfo = getActivity().getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        name_tv.setText(userInfo.getString("personName", "Android Studio"));
+        email_tv.setText(userInfo.getString("personEmail", "android.studio@android.com"));
+
     }
 
     @Override

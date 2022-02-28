@@ -20,7 +20,7 @@
     <activity
         android:id="@+id/nav_comic"
         android:name="com.example.epcmsystem.ComicActivity"
-        android:label="防疫漫画"
+        android:label="@string/comic_activity_name"
         tools:layout="@layout/activity_comic" />
 
     <fragment

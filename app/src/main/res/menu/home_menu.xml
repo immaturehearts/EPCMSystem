@@ -3,25 +3,30 @@
     <group android:id="@+id/mmg1" android:checkableBehavior="single">
         <item
             android:id="@+id/id"
-            android:title="id information"/>
+            android:title="@string/menu_id"
+            android:icon="@drawable/id"/>
 
         <item
             android:id="@+id/info"
-            android:title="basic information"/>
+            android:title="@string/menu_info"
+            android:icon="@drawable/record"/>
 
         <item
             android:id="@+id/punch_in"
-            android:title="health punch-in"/>
+            android:title="@string/menu_punch_in"
+            android:icon="@drawable/tick"/>
     </group>
 
     <group android:id="@+id/mmg2" android:checkableBehavior="single">
         <item
             android:id="@+id/settings"
-            android:title="settings"/>
+            android:title="@string/menu_settings"
+            android:icon="@drawable/settings"/>
 
         <item
             android:id="@+id/service"
-            android:title="service"/>
+            android:title="@string/menu_service"
+            android:icon="@drawable/ser"/>
     </group>
 
 <!--    <group android:id="@+id/mmg3" android:checkableBehavior="single">-->
