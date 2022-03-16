@@ -21,8 +21,18 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class HealthPunchInActivity extends AppCompatActivity {
 
@@ -65,7 +75,9 @@ public class HealthPunchInActivity extends AppCompatActivity {
         mLocationClient.start();
 
         location_btn.setOnClickListener(v -> {
-            location_tv.setText(locationDescribe.substring(2));
+            if(!TextUtils.isEmpty(locationDescribe)) {
+                location_tv.setText(locationDescribe.substring(2));
+            }
         });
 
         submit_btn.setOnClickListener(v -> {
@@ -87,9 +99,14 @@ public class HealthPunchInActivity extends AppCompatActivity {
                 alertDialog1.show();
                 health_tv.requestFocus();
             } else {
-                ///TODO: 将用户数据上传至服务器
-                showResult("健康上报成功");
-                finish();
+                int checked = 1;
+                if(!vaccine_switch.isChecked()){
+                    checked = 0;
+                }
+                punchInUpload(health_tv.getText().toString(), health_spinner.getSelectedItemPosition(),
+                        location_tv.getText().toString(), checked);
+//                showResult("健康上报成功");
+//                finish();
             }
         });
 
@@ -145,6 +162,56 @@ public class HealthPunchInActivity extends AppCompatActivity {
         Pattern p = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(temp);
         return m.matches();
+    }
+
+    private void punchInUpload(String degree, Integer health, String location, Integer vaccine)  {
+        OkHttpClient client = new OkHttpClient();
+        String token = getToken();
+        RequestBody requestBody = new FormBody.Builder()
+                .add("degree", degree)
+                .add("health", String.valueOf(health))
+                .add("location", location)
+                .add("vaccine", String.valueOf(vaccine))
+                .build();
+        Request request = new Request.Builder()
+                .url("http://124.70.222.113:9080/history/punchIn")
+                .header("Cookie", "token="+token)
+                .post(requestBody)
+                .build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("punchIn", "onFailure: ");
+                e.printStackTrace();
+                showResult("健康打卡失败");
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.d("punchIn", "onResponse: ");
+                int code = response.code();
+                String responseStr = response.body().string();
+                Log.d("punchIn", "responseStr: " + responseStr);
+                if(code == HttpURLConnection.HTTP_OK){
+                    Log.d("punchIn","健康打卡成功");
+                    showResult("健康上报成功");
+                    finish();
+                }
+                else{
+                    Log.d("punchIn", "logout failed");
+                    showResult("健康打卡失败");
+                }
+
+            }
+        });
+//        Thread.sleep(500);
+    }
+
+    private String getToken(){
+        SharedPreferences userInfo = getApplicationContext().getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        String token = userInfo.getString("token", "");
+        Log.i("token", token);
+        return token;
     }
 
     public void showResult(final String msg) {

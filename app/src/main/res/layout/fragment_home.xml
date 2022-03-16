@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_ll"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:gravity="center"
     android:orientation="vertical"
@@ -22,5 +22,14 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         app:menu="@menu/home_menu" />
+
+    <Button
+        android:id="@+id/logout_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="5dp"
+        android:text="退出登录"
+        android:textSize="16sp" />
 
 </LinearLayout>

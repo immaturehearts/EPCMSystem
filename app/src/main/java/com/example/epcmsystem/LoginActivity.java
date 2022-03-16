@@ -371,9 +371,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         private void LogIn(Context context){
 //            String password = mPasswordView.getText().toString();
 //            String telephone = mTelephoneView.getText().toString();
-            String url = base_url+"?password="+mPassword+"&telephone="+mTelephone;
+            String url = base_url+"?password="+mPassword+"&phone="+mTelephone;
+            Log.d("login", url);
 
-            Request request = new okhttp3.Request.Builder().url(url).get().build();
+            Request request = new okhttp3.Request.Builder()
+                    .url(url)
+                    .get()
+                    .build();
             OkHttpClient okHttpClient = new OkHttpClient();
             Call call = okHttpClient.newCall(request);
 

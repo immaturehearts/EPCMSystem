@@ -3,9 +3,11 @@ package com.example.epcmsystem;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,8 +15,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class BasicInfoActivity extends AppCompatActivity {
 
@@ -75,9 +87,11 @@ public class BasicInfoActivity extends AppCompatActivity {
                 alertDialog3.show();
                 id_tv.requestFocus();
             } else {
-                saveInfo(name_tv.getText().toString(), gender_spinner.getSelectedItemPosition(), id_tv.getText().toString(), phone_tv.getText().toString(), email_tv.getText().toString());
-                showResult("基本信息保存成功");
-                finish();
+                basicInfoUpload(email_tv.getText().toString(), gender_spinner.getSelectedItemPosition(),
+                        id_tv.getText().toString(), name_tv.getText().toString());
+//                saveInfo(name_tv.getText().toString(), gender_spinner.getSelectedItemPosition(), id_tv.getText().toString(), phone_tv.getText().toString(), email_tv.getText().toString());
+//                showResult("基本信息保存成功");
+//                finish();
             }
         });
 
@@ -183,6 +197,57 @@ public class BasicInfoActivity extends AppCompatActivity {
 //        editText.setLongClickable(mode);
 //        editText.setInputType(mode ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_NULL);
 //    }
+
+    private void basicInfoUpload(String email, Integer gender, String id_card, String trueName)  {
+        OkHttpClient client = new OkHttpClient();
+        String token = getToken();
+        RequestBody requestBody = new FormBody.Builder()
+                .add("email", email)
+                .add("gender", String.valueOf(gender))
+                .add("id_card", id_card)
+                .add("true_name", trueName)
+                .build();
+        Request request = new Request.Builder()
+                .url("http://124.70.222.113:9080/user/basicInfo")
+                .header("Cookie", "token="+token)
+                .post(requestBody)
+                .build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("basicInfo", "onFailure: ");
+                e.printStackTrace();
+                showResult("基本信息上传失败");
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.d("basicInfo", "onResponse: ");
+                int code = response.code();
+                String responseStr = response.body().string();
+                Log.d("basicInfo", "responseStr: " + responseStr);
+                if(code == HttpURLConnection.HTTP_OK){
+                    Log.d("basicInfo","基本信息上传成功");
+                    saveInfo(trueName, gender, id_card, phone_tv.getText().toString(), email);
+                    showResult("基本信息保存成功");
+                    finish();
+                }
+                else{
+                    Log.d("basicInfo", "logout failed");
+                    showResult("基本信息上传失败");
+                }
+
+            }
+        });
+//        Thread.sleep(500);
+    }
+
+    private String getToken(){
+        SharedPreferences userInfo = getApplicationContext().getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        String token = userInfo.getString("token", "");
+        Log.i("token", token);
+        return token;
+    }
 
     public void showResult(final String msg) {
         runOnUiThread(() -> Toast.makeText(BasicInfoActivity.this, msg, Toast.LENGTH_SHORT).show());

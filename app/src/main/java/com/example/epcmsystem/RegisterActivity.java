@@ -220,7 +220,7 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
         OkHttpClient client = new OkHttpClient();
         FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
         formBody.add("password",password);
-        formBody.add("telephone", telephone);
+        formBody.add("phone", telephone);
         formBody.add("userName", username);
         formBody.add("verifyCode", code);
 
