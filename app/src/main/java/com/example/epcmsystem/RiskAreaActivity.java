@@ -38,9 +38,9 @@ public class RiskAreaActivity extends AppCompatActivity {
 //    private List<String> data_list;
 //    private ArrayAdapter<String> arr_adapter;
 
-    private List<RiskArea> riskAreas = new ArrayList<>();
-    private List<RiskArea> middleRiskAreas = new ArrayList<>();
-    private List<RiskArea> highRiskAreas = new ArrayList<>();
+//    private List<RiskArea> riskAreas = new ArrayList<>();
+//    private List<RiskArea> middleRiskAreas = new ArrayList<>();
+//    private List<RiskArea> highRiskAreas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +52,12 @@ public class RiskAreaActivity extends AppCompatActivity {
 //        myProgressBar.setVisibility(View.VISIBLE);
 //        Log.d("gallery","progress bar");
 
-        riskAreas.clear();
-        middleRiskAreas.clear();
-        highRiskAreas.clear();
+        CommonInfo.clearRiskAreaList();
+        CommonInfo.clearMiddleRiskAreaList();
+        CommonInfo.clearHighRiskAreaList();
+//        riskAreas.clear();
+//        middleRiskAreas.clear();
+//        highRiskAreas.clear();
 
         try {
             getRiskArea();
@@ -67,7 +70,7 @@ public class RiskAreaActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new MyItemRecyclerViewAdapter(middleRiskAreas);
+        adapter = new MyItemRecyclerViewAdapter(CommonInfo.getMiddleRiskAreas());
         recyclerView.setAdapter(adapter);
 
         mh_tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -75,13 +78,13 @@ public class RiskAreaActivity extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()){
                     case 0:
-                        tab.setText("中风险(" + middleRiskAreas.size() + ")");
-                        adapter = new MyItemRecyclerViewAdapter(middleRiskAreas);
+                        tab.setText("中风险(" + CommonInfo.getMiddleRiskAreas().size() + ")");
+                        adapter = new MyItemRecyclerViewAdapter(CommonInfo.getMiddleRiskAreas());
                         recyclerView.setAdapter(adapter);
                         break;
                     case 1:
-                        tab.setText("高风险(" + highRiskAreas.size() + ")");
-                        adapter = new MyItemRecyclerViewAdapter(highRiskAreas);
+                        tab.setText("高风险(" + CommonInfo.getHighRiskAreas().size() + ")");
+                        adapter = new MyItemRecyclerViewAdapter(CommonInfo.getHighRiskAreas());
                         recyclerView.setAdapter(adapter);
                         break;
                     default:
@@ -91,10 +94,10 @@ public class RiskAreaActivity extends AppCompatActivity {
             public void onTabUnselected(TabLayout.Tab tab) {
                 switch (tab.getPosition()){
                     case 0:
-                        tab.setText("中风险(" + middleRiskAreas.size() + ")");
+                        tab.setText("中风险(" + CommonInfo.getMiddleRiskAreas().size() + ")");
                         break;
                     case 1:
-                        tab.setText("高风险(" + highRiskAreas.size() + ")");
+                        tab.setText("高风险(" + CommonInfo.getHighRiskAreas().size() + ")");
                         break;
                     default:
                 }
@@ -176,8 +179,8 @@ public class RiskAreaActivity extends AppCompatActivity {
                                 streets.add(street.opt(j).toString());
                             }
                             RiskArea riskArea = new RiskArea(province, city, district, false, streets);
-                            riskAreas.add(riskArea);
-                            middleRiskAreas.add(riskArea);
+                            CommonInfo.addToRiskAreaList(riskArea);
+                            CommonInfo.addToMiddleRiskAreaList(riskArea);
                         }
 
                         JSONArray highList = dicts.getJSONArray("highlist");
@@ -194,10 +197,10 @@ public class RiskAreaActivity extends AppCompatActivity {
                                 streets.add(street.opt(m).toString());
                             }
                             RiskArea riskArea = new RiskArea(province, city, district, true, streets);
-                            riskAreas.add(riskArea);
-                            highRiskAreas.add(riskArea);
+                            CommonInfo.addToRiskAreaList(riskArea);
+                            CommonInfo.addToHighRiskAreaList(riskArea);
                         }
-//                        Log.d("gallery",riskAreas.get(25).getCity() + riskAreas.get(25).getStreets() + riskAreas.get(25).getRiskType());
+                        Log.d("gallery",CommonInfo.getRiskAreas().get(5).getCity() + CommonInfo.getRiskAreas().get(5).getStreets() + CommonInfo.getRiskAreas().get(5).getRiskType());
 
                     } catch (JSONException e) {
                         e.printStackTrace();

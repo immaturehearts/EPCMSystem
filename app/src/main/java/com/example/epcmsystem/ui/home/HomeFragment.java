@@ -6,6 +6,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -65,6 +66,10 @@ public class HomeFragment extends Fragment {
                     Intent intent3 = new Intent(getActivity(), HealthPunchInActivity.class);
                     startActivity(intent3);
                     break;
+                case R.id.service:
+                    Intent intent4 = new Intent(Intent.ACTION_VIEW);
+                    intent4.setData(Uri.parse("https://github.com/immaturehearts/EPCMSystem"));
+                    startActivity(intent4);
                 default:
             }
             return false;

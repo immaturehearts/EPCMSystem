@@ -3,6 +3,8 @@ package com.example.epcmsystem.ui.notifications;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,9 +31,14 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
+import com.example.epcmsystem.BasicInfoActivity;
+import com.example.epcmsystem.CommonInfo;
 import com.example.epcmsystem.R;
+import com.example.epcmsystem.RiskArea;
+import com.example.epcmsystem.RiskAreaActivity;
 import com.example.epcmsystem.databinding.FragmentNotificationBinding;
 import com.example.epcmsystem.ui.notifications.NotificationViewModel;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +52,7 @@ public class NotificationFragment extends Fragment {
     private MapView mapView;
     private BaiduMap baiduMap;
     private boolean isFirstLocate = true;
+    private String tipNote;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -125,12 +133,14 @@ public class NotificationFragment extends Fragment {
             update = MapStatusUpdateFactory.zoomTo(15f);
             baiduMap.animateMapStatus(update);
             isFirstLocate = false;
+            checkAreaList(bdLocation);
         }
         MyLocationData.Builder locationBuilder = new MyLocationData.Builder();
         locationBuilder.latitude(bdLocation.getLatitude());
         locationBuilder.longitude(bdLocation.getLongitude());
         MyLocationData locationData = locationBuilder.build();
         baiduMap.setMyLocationData(locationData); //在地图上显示我的位置
+
     }
 
     @Override
@@ -185,6 +195,38 @@ public class NotificationFragment extends Fragment {
                     positionText.setText(currentPosition);
                 }
             });
+        }
+    }
+
+    public void checkAreaList(BDLocation bdLocation){
+        if(!CommonInfo.getRiskAreas().isEmpty()){
+            for ( RiskArea area : CommonInfo.getRiskAreas() ) {
+                if(TextUtils.equals(area.getDistrict(),bdLocation.getDistrict())){
+                    tipNote = "您所在区域：" + bdLocation.getDistrict() + "\n为中高风险地区，请加强防范！";
+                    Snackbar.make(getView(),tipNote,Snackbar.LENGTH_INDEFINITE)
+                            .setAction("好的", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                }
+                            })
+                            .show();
+//                    showResult(tipNote);
+                    return;
+                }
+            }
+            for ( RiskArea area : CommonInfo.getRiskAreas() ) {
+                if(TextUtils.equals(area.getCity(),bdLocation.getCity())){
+                    tipNote = "您所在城市：" + bdLocation.getCity() + "\n存在中高风险区域，请注意防范！";
+                    Snackbar.make(getView(),tipNote,Snackbar.LENGTH_INDEFINITE)
+                            .setAction("好的", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                }
+                            })
+                            .show();
+                    break;
+                }
+            }
         }
     }
 
