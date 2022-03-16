@@ -52,27 +52,12 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-/**
- * A login screen that offers login via email/password.
- */
 public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
-    /**
-     * Id to identity READ_CONTACTS permission request.
-     */
     private static final int REQUEST_READ_CONTACTS = 0;
     final String PREFS_NAME = "userinfo";
-
-//    private static final String[] DUMMY_CREDENTIALS = new String[]{
-//            "18607339539", "011520"
-//    };
-
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
     private UserLoginTask mAuthTask = null;
 
-    // UI references.
     private AutoCompleteTextView mTelephoneView;
     private EditText mPasswordView;
     private TextView mToRegister;
@@ -84,12 +69,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-//        TODO:new intent
-//        if(getToken().length()>2){
-//            startActivity(new Intent(LoginActivity.this,NavigationActivity.class));
-//            finish();
-//        }
 
         // Set up the login form.
         mTelephoneView = (AutoCompleteTextView) findViewById(R.id.telephone);
@@ -107,8 +86,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+        Button mSignInButton = (Button) findViewById(R.id.sign_in_button);
+        mSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
@@ -120,14 +99,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         SpannableString spannableStringToRegister=new SpannableString(textToRegister);
 
 //        TODO:register activity
-//        spannableStringToRegister.setSpan(new ClickableSpan() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
-//                startActivity(intent);
-//
-//            }
-//        }, 0, textToRegister.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableStringToRegister.setSpan(new ClickableSpan() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(intent);
+
+            }
+        }, 0, textToRegister.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         mToRegister.setText(spannableStringToRegister);
         mToRegister.setMovementMethod(LinkMovementMethod.getInstance());
@@ -252,7 +231,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             focusView = mTelephoneView;
             cancel = true;
         } else if (!judgePhoneNums(telephone)) {
-            mTelephoneView.setError(getString(R.string.error_invalid_email));
+            mTelephoneView.setError(getString(R.string.error_invalid_phone));
             focusView = mTelephoneView;
             cancel = true;
         }
@@ -269,12 +248,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             mAuthTask.execute((Void) null);
         }
     }
-
-//    private boolean isEmailValid(String email) {
-//        //TODO: Replace this with your own logic
-//        //return email.contains("@");
-//        return email.length() >= 3;
-//    }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
@@ -379,52 +352,26 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         private final String mTelephone;
         private final String mPassword;
-        private Boolean success=false;
         final String PREFS_NAME = "userinfo";
-        String base_url = "http://101.35.24.184:9008/user/login/password";
+        String base_url = "http://124.70.222.113:9080/user/login";
 
-        UserLoginTask(String email, String password) {
-            mTelephone = email;
+        UserLoginTask(String phone, String password) {
+            mTelephone = phone;
             mPassword = password;
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
 
-//            try {
-//                // Simulate network access.
-//                Thread.sleep(2000);
-//            } catch (InterruptedException e) {
-//                return false;
-//            }
+            LogIn(LoginActivity.this);
 
-
-//            LogIn(LoginActivity.this);
-
-
-//            for (String credential : DUMMY_CREDENTIALS) {
-//                String[] pieces = credential.split(":");
-//                if (pieces[0].equals(mTelephone)) {
-//                    // Account exists, return true if the password matches.
-//                    //return pieces[1].equals(mPassword);
-//                    if(!pieces[1].equals(mPassword))
-//                        return false;
-//                }
-//            }
-
-            // TODO: register the new account here.
-            //return true;
-
-//            startActivity(new Intent(LoginActivity.this,NavigationActivity.class));
-//            finish();
             return false;
         }
 
         private void LogIn(Context context){
-            String password = mPasswordView.getText().toString();
-            String telephone = mTelephoneView.getText().toString();
-            String url = base_url+"?password="+password+"&telephone="+telephone;
+//            String password = mPasswordView.getText().toString();
+//            String telephone = mTelephoneView.getText().toString();
+            String url = base_url+"?password="+mPassword+"&telephone="+mTelephone;
 
             Request request = new okhttp3.Request.Builder().url(url).get().build();
             OkHttpClient okHttpClient = new OkHttpClient();
@@ -449,14 +396,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                             String token=jsonObject.getJSONObject("data").getString("token");
                             saveToken(token);
                             showResult("登录成功");
-//                            startActivity(new Intent(LoginActivity.this,NavigationActivity.class));
+                            startActivity(new Intent(LoginActivity.this,NavigationActivity.class));
                             finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
                     else{
-                        //Toast.makeText(ResultActivity.this,"超分辨率转换失败", Toast.LENGTH_SHORT).show();
                         Log.d("login", "login failed");
                         showResult("登录失败");
                     }
@@ -487,13 +433,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
-
-//            if (success) {
-//                finish();
-//            } else {
-//                mPasswordView.setError(getString(R.string.error_incorrect_password));
-//                mPasswordView.requestFocus();
-//            }
         }
 
         @Override

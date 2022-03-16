@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.mob.sdk'
 }
 
 android {
@@ -31,6 +32,12 @@ android {
     buildFeatures {
         viewBinding true
     }
+}
+
+MobSDK {
+    appKey "35864a5eba284"
+    appSecret "51d820524ca98c8dbba0292c7617c612"
+    SMSSDK {}
 }
 
 dependencies {

@@ -24,22 +24,26 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.EPCMSystem">
+        android:theme="@style/Theme.EPCMSystem"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
         <activity
             android:name=".ComicActivity"
             android:exported="false" />
         <activity
             android:name=".HealthPunchInActivity"
             android:exported="false"
-            android:label="健康上报"/>
+            android:label="健康上报" />
         <activity
             android:name=".BasicInfoActivity"
             android:exported="false"
-            android:label="基本信息"/>
+            android:label="基本信息" />
         <activity
             android:name=".IDActivity"
             android:exported="false"
-            android:label="身份认证"/>
+            android:label="身份认证" />
         <activity
             android:name=".UploadActivity"
             android:exported="false" />
