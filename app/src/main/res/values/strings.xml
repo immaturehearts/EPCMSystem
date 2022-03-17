@@ -36,7 +36,7 @@
     <string name="title_home">我的</string>
     <string name="title_notification">位置</string>
 
-    <string name="menu_id">身份认证</string>
+    <string name="menu_history">打卡记录</string>
     <string name="menu_info">基本信息</string>
     <string name="menu_punch_in">健康打卡</string>
     <string name="menu_settings">设置</string>
@@ -66,5 +66,11 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="title_activity_user_info">UserInfoActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
 
 </resources>

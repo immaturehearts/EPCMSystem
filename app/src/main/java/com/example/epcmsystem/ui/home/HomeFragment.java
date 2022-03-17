@@ -14,11 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -27,6 +29,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.epcmsystem.BasicInfoActivity;
 import com.example.epcmsystem.HealthPunchInActivity;
+import com.example.epcmsystem.HistoryActivity;
 import com.example.epcmsystem.IDActivity;
 import com.example.epcmsystem.LoginActivity;
 import com.example.epcmsystem.R;
@@ -60,15 +63,30 @@ public class HomeFragment extends Fragment {
         NavigationView myselfView = root.findViewById(R.id.home_nv);
         ViewGroup header = (ViewGroup) getLayoutInflater().inflate(R.layout.home_header, binding.getRoot(), false);
         name_tv = header.findViewById(R.id.user_name);
+        EditText userName_et = new EditText(getContext());
+        name_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+                        .setTitle("修改用户名")
+                        .setView(userName_et)
+                        .setPositiveButton("确定", (dialog, which) -> {
+                            saveInfo(userName_et.getText().toString());
+                        })
+                        .setNegativeButton("取消", ((dialog, which) -> {}))
+                        .create();
+                alertDialog.show();
+            }
+        });
         email_tv = header.findViewById(R.id.user_email);
         myselfView.addHeaderView(header);
         inputInfo();
 
         myselfView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()){
-                case R.id.id:
-//                        Intent intent1 = new Intent(getActivity(), IDActivity.class);
-//                        startActivity(intent1);
+                case R.id.history:
+                    Intent intent1 = new Intent(getActivity(), HistoryActivity.class);
+                    startActivity(intent1);
                     break;
                 case R.id.info:
                     Intent intent2 = new Intent(getActivity(), BasicInfoActivity.class);
@@ -155,9 +173,20 @@ public class HomeFragment extends Fragment {
 
     private void inputInfo(){
         SharedPreferences userInfo = getActivity().getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        name_tv.setText(userInfo.getString("personName", "Android Studio"));
+        if(!userInfo.contains("userName")){
+            name_tv.setText(userInfo.getString("personName", "Android Studio"));
+        } else {
+            name_tv.setText(userInfo.getString("userName", "Android Studio"));
+        }
         email_tv.setText(userInfo.getString("personEmail", "android.studio@android.com"));
+    }
 
+    private void saveInfo(String name){
+        SharedPreferences userInfo = getActivity().getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = userInfo.edit();
+        editor.putString("userName", name);
+        editor.apply();
+        inputInfo();
     }
 
     @Override

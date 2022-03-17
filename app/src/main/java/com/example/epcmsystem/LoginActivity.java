@@ -86,7 +86,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             }
         });
 
-        Button mSignInButton = (Button) findViewById(R.id.sign_in_button);
+        mSignInButton = (Button) findViewById(R.id.sign_in_button);
         mSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,7 +98,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         String textToRegister="立即注册";
         SpannableString spannableStringToRegister=new SpannableString(textToRegister);
 
-//        TODO:register activity
         spannableStringToRegister.setSpan(new ClickableSpan() {
             @Override
             public void onClick(View view) {

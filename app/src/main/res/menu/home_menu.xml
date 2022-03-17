@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:id="@+id/mmg1" android:checkableBehavior="single">
         <item
-            android:id="@+id/id"
-            android:title="@string/menu_id"
+            android:id="@+id/history"
+            android:title="@string/menu_history"
             android:icon="@drawable/id"/>
 
         <item

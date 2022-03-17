@@ -45,6 +45,10 @@
             android:exported="false"
             android:label="身份认证" />
         <activity
+            android:name=".HistoryActivity"
+            android:exported="false"
+            android:label="打卡记录" />
+        <activity
             android:name=".UploadActivity"
             android:exported="false" />
         <activity

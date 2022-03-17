@@ -15,21 +15,36 @@
     <!--        layout="@layout/app_bar_navigation"-->
     <!--        android:layout_width="match_parent"-->
     <!--        android:layout_height="match_parent" />-->
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/home_nv"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        app:menu="@menu/home_menu" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/logout_btn"
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/home_nv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            app:menu="@menu/home_menu" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="5dp"
-        android:text="退出登录"
-        android:textSize="16sp" />
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/logout_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:text="退出登录"
+            android:textSize="16sp" />
+
+    </LinearLayout>
 
 </LinearLayout>
