@@ -201,10 +201,8 @@ public class HealthPunchInActivity extends AppCompatActivity {
                     Log.d("punchIn", "logout failed");
                     showResult("健康打卡失败");
                 }
-
             }
         });
-//        Thread.sleep(500);
     }
 
     private String getToken(){

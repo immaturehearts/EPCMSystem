@@ -86,12 +86,14 @@ public class BasicInfoActivity extends AppCompatActivity {
                         .create();
                 alertDialog3.show();
                 id_tv.requestFocus();
-            } else {
+            } else if (name_tv.isDirty() || id_tv.isDirty() || gender_spinner.isDirty() || email_tv.isDirty()){
                 basicInfoUpload(email_tv.getText().toString(), gender_spinner.getSelectedItemPosition(),
                         id_tv.getText().toString(), name_tv.getText().toString());
-//                saveInfo(name_tv.getText().toString(), gender_spinner.getSelectedItemPosition(), id_tv.getText().toString(), phone_tv.getText().toString(), email_tv.getText().toString());
-//                showResult("基本信息保存成功");
-//                finish();
+//                saveInfo(name_tv.getText().toString(), gender_spinner.getSelectedItemPosition(),
+//                id_tv.getText().toString(), phone_tv.getText().toString(), email_tv.getText().toString());
+            } else {
+                showResult("基本信息保存成功");
+                finish();
             }
         });
 
