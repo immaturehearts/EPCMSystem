@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,10 @@ import com.baidu.location.LocationClientOption;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,6 +50,8 @@ public class HealthPunchInActivity extends AppCompatActivity {
     String locationDescribe;
     public LocationClient mLocationClient = null;
     private MyLocationListener myListener = new MyLocationListener();
+    String last_punch_in_time;
+    final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,14 +106,28 @@ public class HealthPunchInActivity extends AppCompatActivity {
                 alertDialog1.show();
                 health_tv.requestFocus();
             } else {
-                int checked = 1;
-                if(!vaccine_switch.isChecked()){
-                    checked = 0;
+                try {
+                    if (!checkTimeDiff()) {
+                        AlertDialog alertDialog2 = new AlertDialog.Builder(HealthPunchInActivity.this)
+                                .setMessage("今日已打卡，请明天再来！")
+                                .setPositiveButton("确定", (dialog, which) -> {
+                                    finish();
+                                })
+                                .create();
+                        alertDialog2.show();
+                    } else {
+                        int checked = 1;
+                        if(!vaccine_switch.isChecked()){
+                            checked = 0;
+                        }
+                        punchInUpload(health_tv.getText().toString(), health_spinner.getSelectedItemPosition(),
+                                location_tv.getText().toString(), checked);
+        //                showResult("健康上报成功");
+        //                finish();
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-                punchInUpload(health_tv.getText().toString(), health_spinner.getSelectedItemPosition(),
-                        location_tv.getText().toString(), checked);
-//                showResult("健康上报成功");
-//                finish();
             }
         });
 
@@ -143,6 +164,28 @@ public class HealthPunchInActivity extends AppCompatActivity {
         name_tv.setEnabled(false);
         id_tv.setEnabled(false);
         phone_tv.setEnabled(false);
+    }
+
+    //保存本次提交时间
+    private void saveTime(){
+        SharedPreferences userInfo = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = userInfo.edit();
+        Date date = new Date(System.currentTimeMillis());
+        last_punch_in_time = format.format(date);
+        editor.putString("last_punch_in_time", last_punch_in_time);
+        editor.apply();
+    }
+
+    //限制提交，一天提交一次
+    private boolean checkTimeDiff() throws ParseException {
+        SharedPreferences userInfo = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        if(userInfo.contains("last_punch_in_time")){
+            String lastTime = userInfo.getString("last_punch_in_time","");
+            Date now = new Date(System.currentTimeMillis());
+            String thisTime = format.format(now);
+            return !TextUtils.equals(lastTime, thisTime);
+        }
+        return true;
     }
 
     public class MyLocationListener extends BDAbstractLocationListener {
@@ -195,6 +238,7 @@ public class HealthPunchInActivity extends AppCompatActivity {
                 if(code == HttpURLConnection.HTTP_OK){
                     Log.d("punchIn","健康打卡成功");
                     showResult("健康上报成功");
+                    saveTime();
                     finish();
                 }
                 else{
