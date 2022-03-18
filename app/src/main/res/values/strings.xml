@@ -44,7 +44,13 @@
 
     <string name="area_activity_name">风险区域</string>
     <string name="comic_activity_name">防疫漫画</string>
+    <string name="history_activity_name">打卡记录</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="history_degree_name">体温：</string>
+    <string name="history_health_name">状态：</string>
+    <string name="history_position_name">定位：</string>
+    <string name="degree">℃</string>
+    <string name="image_description">Hello</string>
 
     <string name="info_name">姓名 Name</string>
     <string name="info_gender">性别 Gender</string>

@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -86,14 +88,11 @@ public class BasicInfoActivity extends AppCompatActivity {
                         .create();
                 alertDialog3.show();
                 id_tv.requestFocus();
-            } else if (name_tv.isDirty() || id_tv.isDirty() || gender_spinner.isDirty() || email_tv.isDirty()){
+            } else {
                 basicInfoUpload(email_tv.getText().toString(), gender_spinner.getSelectedItemPosition(),
                         id_tv.getText().toString(), name_tv.getText().toString());
 //                saveInfo(name_tv.getText().toString(), gender_spinner.getSelectedItemPosition(),
 //                id_tv.getText().toString(), phone_tv.getText().toString(), email_tv.getText().toString());
-            } else {
-                showResult("基本信息保存成功");
-                finish();
             }
         });
 
