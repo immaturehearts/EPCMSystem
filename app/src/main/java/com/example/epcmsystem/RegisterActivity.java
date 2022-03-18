@@ -77,7 +77,6 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
 
     /**
      * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
      */
 //    private static final String[] DUMMY_CREDENTIALS = new String[]{
 //            "abcd:1234"
@@ -342,7 +341,6 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
             return true;
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            // TODO: alert the user with a Snackbar/AlertDialog giving them the permission rationale
             // To use the Snackbar from the design support library, ensure that the activity extends
             // AppCompatActivity and uses the Theme.AppCompat theme.
         } else {

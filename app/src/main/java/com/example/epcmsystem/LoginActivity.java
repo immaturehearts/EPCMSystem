@@ -173,7 +173,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             return true;
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            // TODO: alert the user with a Snackbar/AlertDialog giving them the permission rationale
             // To use the Snackbar from the design support library, ensure that the activity extends
             // AppCompatActivity and uses the Theme.AppCompat theme.
         } else {
@@ -249,7 +248,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() >= 3;
     }
 
@@ -404,6 +402,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                    } else if (code == 504) {
+                        Log.d("login", "login failed, user not exist");
+                        showResult("该手机号尚未注册");
+                    } else if (code == 513) {
+                        Log.d("login", "login failed, password not correct");
+                        showResult("密码输入错误");
                     }
                     else{
                         Log.d("login", "login failed");
