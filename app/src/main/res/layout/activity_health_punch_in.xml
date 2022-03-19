@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,325 +9,332 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="50dp">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:text="基本信息  Basic Information"
-                    android:textSize="20sp"
-                    android:textStyle="bold|italic"
-                    android:gravity="center"
-                    android:background="@color/purple_200"/>
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="50dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:text="姓名"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="1"/>
-
-                    <EditText
-                        android:id="@+id/health_name_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:hint="name"
-                        android:ems="10"
-                        android:textSize="18sp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:text="基本信息  Basic Information"
+                        android:textSize="20sp"
+                        android:textStyle="bold|italic"
                         android:gravity="center"
-                        android:inputType="textPersonName" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:text="联系方式"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="1"/>
-
-                    <EditText
-                        android:id="@+id/health_phone_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:hint="phone"
-                        android:ems="10"
-                        android:textSize="18sp"
-                        android:layout_marginEnd="10dp"
-                        android:gravity="center"
-                        android:inputType="phone" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:text="身份证号"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="1"/>
-
-                    <EditText
-                        android:id="@+id/health_id_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:hint="id"
-                        android:ems="10"
-                        android:textSize="18sp"
-                        android:layout_marginEnd="10dp"
-                        android:gravity="center"
-                        android:inputType="number" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="50dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:text="健康信息  Health Information"
-                    android:textSize="20sp"
-                    android:textStyle="bold|italic"
-                    android:gravity="center"
-                    android:background="@color/purple_200"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:text="体温"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="1"/>
-
-                    <EditText
-                        android:id="@+id/health_temp_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:hint="degree"
-                        android:ems="6"
-                        android:textSize="18sp"
-                        android:inputType="numberDecimal"
-                        android:gravity="center"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="@string/degree"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:gravity="center_vertical"
-                        android:layout_marginEnd="10dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:text="健康状态"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="1"/>
-
-                    <Spinner
-                        android:id="@+id/spinner3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:entries="@array/health_condition_values"
-                        android:minHeight="48dp"
-                        android:spinnerMode="dialog" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:text="是否接种疫苗"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="1"/>
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/switch1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:checked="true"
-                        android:textOff="否"
-                        android:textOn="是"
-                        app:showText="true"
-                        android:layout_marginEnd="10dp"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="50dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="18dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:text="位置信息  Location Information"
-                    android:textSize="20sp"
-                    android:textStyle="bold|italic"
-                    android:gravity="center"
-                    android:background="@color/purple_200"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:orientation="horizontal">
+                        android:background="@color/purple_200"/>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="当前定位"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="姓名"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:gravity="center_vertical"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginStart="10dp"/>
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"/>
 
                         <EditText
-                            android:id="@+id/health_location_tv"
+                            android:id="@+id/health_name_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:hint="请点击右侧按钮获取位置"
-                            android:ems="18"
-                            android:textSize="16sp"
-                            android:inputType="text"
-                            android:gravity="start|center_vertical"
-                            android:layout_marginStart="10dp"/>
+                            android:hint="name"
+                            android:ems="10"
+                            android:textSize="18sp"
+                            android:layout_marginEnd="10dp"
+                            android:gravity="center"
+                            android:inputType="textPersonName" />
 
                     </LinearLayout>
 
-                    <ImageButton
-                        android:id="@+id/health_location_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:src="@android:drawable/ic_menu_compass"
-                        android:contentDescription="get location" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="联系方式"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"/>
+
+                        <EditText
+                            android:id="@+id/health_phone_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:hint="phone"
+                            android:ems="10"
+                            android:textSize="18sp"
+                            android:layout_marginEnd="10dp"
+                            android:gravity="center"
+                            android:inputType="phone" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="身份证号"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"/>
+
+                        <EditText
+                            android:id="@+id/health_id_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:hint="id"
+                            android:ems="10"
+                            android:textSize="18sp"
+                            android:layout_marginEnd="10dp"
+                            android:gravity="center"
+                            android:inputType="number" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-        </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="50dp">
 
-    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:text="健康信息  Health Information"
+                        android:textSize="20sp"
+                        android:textStyle="bold|italic"
+                        android:gravity="center"
+                        android:background="@color/purple_200"/>
 
-        <Button
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="体温"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"/>
+
+                        <EditText
+                            android:id="@+id/health_temp_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:hint="degree"
+                            android:ems="6"
+                            android:textSize="18sp"
+                            android:inputType="numberDecimal"
+                            android:gravity="center"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/degree"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:gravity="center_vertical"
+                            android:layout_marginEnd="10dp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="健康状态"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"/>
+
+                        <Spinner
+                            android:id="@+id/spinner3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:entries="@array/health_condition_values"
+                            android:minHeight="48dp"
+                            android:spinnerMode="dialog" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="是否接种疫苗"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"/>
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/switch1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:checked="true"
+                            android:textOff="否"
+                            android:textOn="是"
+                            app:showText="true"
+                            android:layout_marginEnd="10dp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="50dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="18dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:text="位置信息  Location Information"
+                        android:textSize="20sp"
+                        android:textStyle="bold|italic"
+                        android:gravity="center"
+                        android:background="@color/purple_200"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="当前定位"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:gravity="center_vertical"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginStart="10dp"/>
+
+                            <EditText
+                                android:id="@+id/health_location_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:hint="请点击右侧按钮获取位置"
+                                android:ems="18"
+                                android:textSize="16sp"
+                                android:inputType="text"
+                                android:gravity="start|center_vertical"
+                                android:layout_marginStart="10dp"/>
+
+                        </LinearLayout>
+
+                        <ImageButton
+                            android:id="@+id/health_location_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@android:drawable/ic_menu_compass"
+                            android:contentDescription="get location" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/health_submit_btn"
-            android:text="提交" />
+            android:layout_marginBottom="30dp"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/health_submit_btn"
+                android:text="提交" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>
