@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -37,10 +38,6 @@ public class HistoryActivity extends AppCompatActivity {
     String base_url = "http://124.70.222.113:9080/history/historyUser";
     final String PREFS_NAME = "userinfo";
     private Uri[] image_urls = {
-            Uri.parse("https://alifei03.cfp.cn/creative/vcg/800/new/VCG41N1210205351.jpg"),
-            Uri.parse("https://t7.baidu.com/it/u=2291349828,4144427007&fm=193&f=GIF"),
-            Uri.parse("https://t7.baidu.com/it/u=839828294,1619278046&fm=193&f=GIF"),
-            Uri.parse("https://t7.baidu.com/it/u=805456074,3405546217&fm=193&f=GIF"),
             Uri.parse("https://iconfont.alicdn.com/t/649a1428-ef07-4c08-989f-bbb2fde977ff.png"),
             Uri.parse("https://iconfont.alicdn.com/t/3c99b58e-c319-4736-8613-2c5f34b7b8e4.png"),
             Uri.parse("https://iconfont.alicdn.com/t/fbd32d88-901f-48e6-88b5-28c5d4f3935d.png"),
@@ -82,7 +79,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     private void getHist() throws InterruptedException {
         long page = 1;
-        int pageSize = 10;
+        int pageSize = 20;
         String url = base_url+"?page="+page+"&pageSize="+pageSize;
 
         OkHttpClient client = new OkHttpClient();
@@ -116,11 +113,11 @@ public class HistoryActivity extends AppCompatActivity {
                         if(maxhis>pageSize) maxhis=pageSize;
                         for(int i=0;i<maxhis;i++){
                             JSONObject jsonObject = (JSONObject)jsonArray.opt(i);
-                            String date = jsonObject.getString("gmtModify").substring(0,20);
+                            String date = jsonObject.getString("gmtModify");//.substring(0,20);
                             String degree = jsonObject.getString("degree");
                             int health = jsonObject.getInt("health");
                             String location = jsonObject.getString("location");
-                            HistoryCard card = new HistoryCard(date, degree, health, location, image_urls[i%image_urls.length]);
+                            HistoryCard card = new HistoryCard(formatCSTDate(date), degree, health, location, image_urls[i%image_urls.length]);
                             cardList.add(card);
                         }
                     } catch (JSONException e) {
@@ -136,6 +133,22 @@ public class HistoryActivity extends AppCompatActivity {
         });
 
         Thread.sleep(1000);
+    }
+
+    public static String formatCSTDate(String cstDateStr) {
+        Date date = null;
+        SimpleDateFormat sdf1 = null;
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+        sdf2.setTimeZone(TimeZone.getTimeZone("GMT-6"));
+        try {
+            sdf1 = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.US);
+            sdf1.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+            date = sdf1.parse(cstDateStr);
+        } catch (ParseException e) {
+            Log.d("date","CST日期格式转换出错，原因：" + e.getMessage());
+            return "null";
+        }
+        return sdf2.format(date);
     }
 
     public void showResult(final String msg) {

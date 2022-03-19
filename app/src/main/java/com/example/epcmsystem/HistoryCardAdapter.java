@@ -1,6 +1,7 @@
 package com.example.epcmsystem;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +61,15 @@ public class HistoryCardAdapter extends RecyclerView.Adapter<HistoryCardAdapter.
         holder.cardDate.setText(card.getDate());
         holder.cardDegree.setText(card.getDegree() + "℃");
         String[] items = hContext.getResources().getStringArray(R.array.health_condition_values);
-        holder.cardHealth.setText(items[card.getHealth()]);
+        int health_index = card.getHealth();
+        holder.cardHealth.setText(items[health_index]);
+        if( health_index == 0 || health_index == 4 ){
+            holder.cardHealth.setTextColor(Color.rgb(93,160,97));
+        } else if ( health_index == 3 ){
+            holder.cardHealth.setTextColor(Color.rgb(210,44,52));
+        } else{
+            holder.cardHealth.setTextColor(Color.rgb(231,168,58));
+        }
         holder.cardPosition.setText(card.getLocation());
         Glide.with(hContext).load(card.getImage()).thumbnail(0.1f).into(holder.imageView);
     }

@@ -59,11 +59,13 @@ public class RiskAreaActivity extends AppCompatActivity {
 //        middleRiskAreas.clear();
 //        highRiskAreas.clear();
 
-        try {
-            getRiskArea();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getRiskArea();
+            }
+        }).start();
 //        mh_tabLayout.getTabAt(0).select();
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.gallery_rv);
@@ -121,7 +123,7 @@ public class RiskAreaActivity extends AppCompatActivity {
 //        spinner.setAdapter(arr_adapter);
     }
 
-    private void getRiskArea() throws InterruptedException {
+    private void getRiskArea() {
         OkHttpClient client = new OkHttpClient();
         FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
 

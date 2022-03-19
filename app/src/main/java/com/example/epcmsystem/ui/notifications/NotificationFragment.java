@@ -3,8 +3,14 @@ package com.example.epcmsystem.ui.notifications;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -17,6 +23,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -226,6 +233,7 @@ public class NotificationFragment extends Fragment {
                                 }
                             })
                             .show();
+                    showNotification(tipNote);
 //                    showResult(tipNote);
                     return;
                 }
@@ -240,10 +248,31 @@ public class NotificationFragment extends Fragment {
                                 }
                             })
                             .show();
+                    showNotification(tipNote);
                     break;
                 }
             }
         }
+    }
+
+    //手机通知
+    private void showNotification(String note){
+        NotificationManager manager = (NotificationManager)
+                getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        //需添加的代码
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            String channelId = "default";
+            String channelName = "默认通知";
+            manager.createNotificationChannel(new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH));
+        }
+        Notification notification = new NotificationCompat.Builder(getContext(),"default")
+                .setContentTitle("疫码通：注意个人保护！")
+                .setContentText(tipNote)
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.drawable.epcm)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.epcm))
+                .build();
+        manager.notify(1, notification);
     }
 
     ///TODO: 创建定时器，定时上传定位信息
