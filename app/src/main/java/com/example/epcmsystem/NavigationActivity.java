@@ -113,6 +113,9 @@ public class NavigationActivity extends AppCompatActivity {
 //        NavHostFragment navHostFragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_navigation);
 //        NavController bottomNavController = navHostFragment.getNavController();
 
+        //启动定时服务
+        Intent intent = new Intent(getApplicationContext(), AlarmService.class);
+        getApplicationContext().startService(intent);
     }
 
     private void inputInfo(){

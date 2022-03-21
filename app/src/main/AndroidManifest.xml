@@ -82,6 +82,11 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
+        <service
+            android:name=".AlarmService"
+            android:label="AlarmService"
+            android:enabled="true">
+        </service>
     </application>
 
 </manifest>
