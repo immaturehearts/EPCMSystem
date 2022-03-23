@@ -394,10 +394,15 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                         try{
                             JSONObject jsonObject=new JSONObject(resposeBody);
                             Log.d("login", jsonObject.toString());
-                            String token=jsonObject.getJSONObject("data").getString("token");
+                            String token = jsonObject.getJSONObject("data").getString("token");
+                            int userType = jsonObject.getJSONObject("data").getInt("type");
                             saveToken(token);
                             showResult("登录成功");
-                            startActivity(new Intent(LoginActivity.this,NavigationActivity.class));
+                            if(userType == 0) {
+                                startActivity(new Intent(LoginActivity.this,NavigationActivity.class));
+                            } else {
+                                startActivity(new Intent(LoginActivity.this,AdminActivity.class));
+                            }
                             finish();
                         } catch (JSONException e) {
                             e.printStackTrace();

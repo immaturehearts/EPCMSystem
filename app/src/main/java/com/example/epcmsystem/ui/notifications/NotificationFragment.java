@@ -305,7 +305,7 @@ public class NotificationFragment extends Fragment {
         }
         Notification notification = new NotificationCompat.Builder(getContext(),"default")
                 .setContentTitle("疫码通：注意个人保护！")
-                .setContentText(tipNote)
+                .setContentText(note)
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.drawable.epcm)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.epcm))

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,12 +21,13 @@ import java.util.Locale;
 
 public class HistoryCardAdapter extends RecyclerView.Adapter<HistoryCardAdapter.ViewHolder> {
     private Context hContext;
+    private int userType;
 
     private List<HistoryCard> hCardList;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
-        TextView cardDate, cardDegree, cardHealth, cardPosition;
+        TextView cardDate, cardDegree, cardHealth, cardPosition, cardUID;
         ImageView imageView;
 
         public ViewHolder(View view) {
@@ -35,12 +37,14 @@ public class HistoryCardAdapter extends RecyclerView.Adapter<HistoryCardAdapter.
             cardDegree = (TextView) view.findViewById(R.id.degree_tv);
             cardHealth = (TextView) view.findViewById(R.id.health_tv);
             cardPosition = (TextView) view.findViewById(R.id.location_tv);
+            cardUID = (TextView) view.findViewById(R.id.card_uid);
             imageView = (ImageView) view.findViewById(R.id.history_iv);
         }
     }
 
-    public HistoryCardAdapter(List<HistoryCard> cardList){
+    public HistoryCardAdapter(List<HistoryCard> cardList, int type){
         hCardList = cardList;
+        userType = type;
     }
 
     @NonNull
@@ -56,8 +60,31 @@ public class HistoryCardAdapter extends RecyclerView.Adapter<HistoryCardAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull HistoryCardAdapter.ViewHolder holder, int position) {
-//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.CHINA);
+        if(userType == 1){
+            holder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    AlertDialog alertDialog = new AlertDialog.Builder(hContext)
+                            .setTitle("删除")
+                            .setMessage("您确认删除该记录吗？")
+                            .setPositiveButton("确定", (dialog, which) -> {
+                                int pos = holder.getBindingAdapterPosition();
+                                hCardList.remove(pos);
+                                notifyItemRemoved(pos);
+                            })
+                            .setNegativeButton("取消", ((dialog, which) -> { }))
+                            .create();
+                    alertDialog.show();
+                    return false;
+                }
+            });
+        }
+
         HistoryCard card = hCardList.get(position);
+        if (userType == 1) {
+            holder.cardUID.setVisibility(View.VISIBLE);
+            holder.cardUID.setText("id:" + card.getId() + " uid:" + card.getUid());
+        }
         holder.cardDate.setText(card.getDate());
         holder.cardDegree.setText(card.getDegree() + "℃");
         String[] items = hContext.getResources().getStringArray(R.array.health_condition_values);

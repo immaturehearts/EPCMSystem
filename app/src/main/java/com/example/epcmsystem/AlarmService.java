@@ -1,18 +1,28 @@
 package com.example.epcmsystem;
 
 import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 
 import com.example.epcmsystem.ui.notifications.NotificationFragment;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -59,7 +69,7 @@ public class AlarmService extends Service {
 
         //设置定时器Alarm，每隔30秒向服务器上传定位数据
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        int interval = 30 * 1000; //30s上传一次
+        int interval = 60 * 1000; //60s上传一次
         long triggerAtTime = System.currentTimeMillis() + interval;
 
         //循环启动服务，将定位数据存入intent的bundle包中
@@ -113,6 +123,18 @@ public class AlarmService extends Service {
                     Log.d("position", "responseStr: " + responseStr);
                     if(code == HttpURLConnection.HTTP_OK){
                         Log.d("position","定位数据上传成功");
+                        try {
+                            JSONObject jsonObject = new JSONObject(responseStr).getJSONObject("data");
+                            //0-has not, 1-has
+                            int hasNearBy = jsonObject.getInt("nearby");
+                            String note = "您的附近可能存在潜在的感染风险，请注意防护！";
+                            if(hasNearBy == 1){
+                                showNotification(note);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.d("position", "position upload failed");
+                        }
                     }
                     else{
                         Log.d("position", "position upload failed");
@@ -126,6 +148,25 @@ public class AlarmService extends Service {
             String token = userInfo.getString("token", "");
             Log.i("token", token);
             return token;
+        }
+
+        //手机通知
+        private void showNotification(String note){
+            NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            //需添加的代码
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                String channelId = "nearby";
+                String channelName = "附近的人";
+                manager.createNotificationChannel(new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH));
+            }
+            Notification notification = new NotificationCompat.Builder(getApplicationContext(),"nearby")
+                    .setContentTitle("疫码通：注意个人保护！")
+                    .setContentText(note)
+                    .setWhen(System.currentTimeMillis())
+                    .setSmallIcon(R.drawable.epcm)
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.epcm))
+                    .build();
+            manager.notify(2, notification);
         }
 
     }

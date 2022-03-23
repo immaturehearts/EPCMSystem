@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import okhttp3.Response;
 public class HistoryActivity extends AppCompatActivity {
 
     String base_url = "http://124.70.222.113:9080/history/historyUser";
+    private int type = 0;
     final String PREFS_NAME = "userinfo";
     private Uri[] image_urls = {
             Uri.parse("https://iconfont.alicdn.com/t/649a1428-ef07-4c08-989f-bbb2fde977ff.png"),
@@ -58,6 +60,11 @@ public class HistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+        Intent intent1 = getIntent();
+        if(intent1.getIntExtra("userType", 0) == 1){
+            base_url = "http://124.70.222.113:9080/history/all/history";
+            type = 1;
+        }
         if(getSupportActionBar()!=null){
             getSupportActionBar().hide();// 隐藏ActionBar
         }
@@ -73,7 +80,7 @@ public class HistoryActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new HistoryCardAdapter(cardList);
+        adapter = new HistoryCardAdapter(cardList, type);
         recyclerView.setAdapter(adapter);
     }
 
@@ -113,11 +120,13 @@ public class HistoryActivity extends AppCompatActivity {
                         if(maxhis>pageSize) maxhis=pageSize;
                         for(int i=0;i<maxhis;i++){
                             JSONObject jsonObject = (JSONObject)jsonArray.opt(i);
+                            long uid = jsonObject.getLong("uid");
                             String date = jsonObject.getString("gmtModify");//.substring(0,20);
                             String degree = jsonObject.getString("degree");
                             int health = jsonObject.getInt("health");
                             String location = jsonObject.getString("location");
-                            HistoryCard card = new HistoryCard(formatCSTDate(date), degree, health, location, image_urls[i%image_urls.length]);
+                            long id = jsonObject.getLong("id");
+                            HistoryCard card = new HistoryCard(id, uid, formatCSTDate(date), degree, health, location, image_urls[i%image_urls.length]);
                             cardList.add(card);
                         }
                     } catch (JSONException e) {

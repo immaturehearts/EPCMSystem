@@ -27,6 +27,9 @@
         android:theme="@style/Theme.EPCMSystem"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".AdminActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
@@ -84,9 +87,8 @@
             android:process=":remote" />
         <service
             android:name=".AlarmService"
-            android:label="AlarmService"
-            android:enabled="true">
-        </service>
+            android:enabled="true"
+            android:label="AlarmService"></service>
     </application>
 
 </manifest>
